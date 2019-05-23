@@ -12,7 +12,6 @@ import (
 // Experimental flag value
 var Experimental bool
 var ConfigPath string
-var Conf *config.Config
 
 var rootCmd = &cobra.Command{
 	Use:   "adhocio",
@@ -34,7 +33,7 @@ func init() {
 }
 
 func initConfig() {
-	_, err := config.GetConfig(ConfigPath)
+	err := config.GetConfig(ConfigPath)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)

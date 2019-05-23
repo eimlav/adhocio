@@ -1,32 +1,37 @@
 package config
 
 import (
-	"io/ioutil"
+	"errors"
 
-	yaml "gopkg.in/yaml.v2"
+	homedir "github.com/mitchellh/go-homedir"
+	"github.com/spf13/viper"
 )
 
-type Config struct {
-	JenkinsDomain      string   `yaml:"jenkins_domain"`
-	AdhocPrefix        string   `yaml:"adhoc_prefix"`
-	ExperimentalPrefix string   `yaml:"experimental_prefix"`
-	JobPrefix          string   `yaml:"job_prefix"`
-	Jobs               []string `yaml:"jobs"`
-}
-
 // GetConfig - Retrieves the configuration stored at the specified filepath
-func GetConfig(filepath string) (*Config, error) {
-	configFile, err := ioutil.ReadFile(filepath)
-	if err != nil {
-		return nil, err
+func GetConfig(filepath string) error {
+	if filepath != "" {
+		viper.SetConfigFile(filepath)
+	} else {
+		home, err := homedir.Dir()
+		if err != nil {
+			return err
+		}
+
+		viper.AddConfigPath(home)
+		viper.SetConfigName(".adhocio.yaml")
 	}
 
-	config := &Config{}
-
-	err = yaml.Unmarshal(configFile, &config)
-	if err != nil {
-		return nil, err
+	if err := viper.ReadInConfig(); err != nil {
+		return err
 	}
 
-	return config, nil
+	if viper.GetString("jenkins_domain") == "" {
+		return errors.New("No Jenkins domain found in config.")
+	}
+
+	if len(viper.GetStringSlice("jobs")) == 0 {
+		return errors.New("No jobs found in config.")
+	}
+
+	return nil
 }
