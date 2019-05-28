@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -47,7 +48,7 @@ func MakeAPIRequest(requestURL, httpType string, output interface{}) error {
 	}
 	defer response.Body.Close()
 
-	if response.StatusCode != 200 && response.StatusCode != 204 {
+	if !strings.HasPrefix(strconv.Itoa(response.StatusCode), "2") {
 		return fmt.Errorf("%s %d %s", "HTTP Status Code", response.StatusCode, "returned")
 	}
 

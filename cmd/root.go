@@ -9,9 +9,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// Experimental flag value
-var Experimental bool
-var ConfigPath string
+// CLI flags
+var (
+	Experimental bool
+	ConfigPath   string
+	RunRef       string
+	RunRepo      string
+	RunUser      string
+)
 
 var rootCmd = &cobra.Command{
 	Use:   "adhocio",
@@ -28,6 +33,9 @@ func init() {
 	cobra.OnInitialize(initConfig)
 	enableCmd.Flags().BoolVarP(&Experimental, "experimental", "x", false, "Use experimental adhoc")
 	runCmd.Flags().BoolVarP(&Experimental, "experimental", "x", false, "Use experimental adhoc")
+	runCmd.Flags().StringVarP(&RunRef, "ref", "", "master", "Git ref of the checkout; can be branchName, for tag use refs/tags/tagName, commitId (SHA), etc (default: master)")
+	runCmd.Flags().StringVarP(&RunRef, "repo", "", "", "The repository in Github to clone. (default: set by job)")
+	runCmd.Flags().StringVarP(&RunUser, "user", "", "", "User/org in Github to clone the target repo from (default: set by job)")
 	rootCmd.PersistentFlags().StringVarP(&ConfigPath, "filepath", "c", os.Getenv("HOME")+"/.adhocio.yaml", "Path to configuration file")
 	rootCmd.AddCommand(configCmd, enableCmd, runCmd, versionCmd)
 }
