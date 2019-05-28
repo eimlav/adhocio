@@ -29,7 +29,7 @@ func init() {
 	enableCmd.Flags().BoolVarP(&Experimental, "experimental", "x", false, "Use experimental adhoc")
 	runCmd.Flags().BoolVarP(&Experimental, "experimental", "x", false, "Use experimental adhoc")
 	rootCmd.PersistentFlags().StringVarP(&ConfigPath, "filepath", "c", os.Getenv("HOME")+"/.adhocio.yaml", "Path to configuration file")
-	rootCmd.AddCommand(runCmd, enableCmd, versionCmd)
+	rootCmd.AddCommand(configCmd, enableCmd, runCmd, versionCmd)
 }
 
 func initConfig() {

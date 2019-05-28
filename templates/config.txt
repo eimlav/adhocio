@@ -1,0 +1,9 @@
+Jenkins Domain: {{ .JenkinsDomain }}
+Adhoc Prefix: {{ .AdhocPrefix }}
+Experimental Prefix: {{ .ExperimentalPrefix }}
+Jobs: 
+{{ range .Jobs }}
+    - {{ .}}
+{{ else }}
+No jobs found.
+{{ end }}
