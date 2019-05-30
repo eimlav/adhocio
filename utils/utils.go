@@ -39,7 +39,7 @@ func MakeAPIRequest(requestURL, httpType string, output interface{}) error {
 	}
 
 	// Add authorisation token to header
-	request.SetBasicAuth(os.Getenv("JENKINS_USERNAME"), os.Getenv("JENKINS_PASSWORD"))
+	request.SetBasicAuth(os.Getenv("JENKINS_USERNAME"), os.Getenv("JENKINS_API_TOKEN"))
 
 	// Execute request
 	response, err := client.Do(request)

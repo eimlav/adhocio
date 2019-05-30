@@ -34,8 +34,8 @@ func GetConfig(filepath string) error {
 		return errors.New("No jobs found in config.")
 	}
 
-	if os.Getenv("JENKINS_USERNAME") == "" || os.Getenv("JENKINS_PASSWORD") == "" {
-		return errors.New("Ensure that JENKINS_USERNAME and JENKINS_PASSWORD env vars are set.")
+	if os.Getenv("JENKINS_USERNAME") == "" || os.Getenv("JENKINS_API_TOKEN") == "" {
+		return errors.New("Ensure that JENKINS_USERNAME and JENKINS_API_TOKEN env vars are set.")
 	}
 
 	return nil

@@ -12,6 +12,18 @@ The following will install a compiled binary:
 
 ## Usage
 
+### Authentication
+
+You will need to export credentials to access your Jenkins instance:
+
+    $ export JENKINS_USERNAME=<your-username>
+
+    $ export JENKINS_API_TOKEN=<your-api-token>
+
+To get an API token, go to the Jenkins dashboard. At the top right corner click the arrow drop-down beside your username then select the `Configure` option. This will direct you to a page where you can generate an token in the section titled `API Token`. Ensure you save this token somewhere as you will not be able to reveal it after you have created it.
+
+### Commands
+
 ```
 config      Display config 
 enable      Enable all jobs in a pipeline
