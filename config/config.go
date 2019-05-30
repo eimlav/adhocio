@@ -2,6 +2,7 @@ package config
 
 import (
 	"errors"
+	"os"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
@@ -31,6 +32,10 @@ func GetConfig(filepath string) error {
 
 	if len(viper.GetStringSlice("jobs")) == 0 {
 		return errors.New("No jobs found in config.")
+	}
+
+	if os.Getenv("JENKINS_USERNAME") == "" || os.Getenv("JENKINS_PASSWORD") == "" {
+		return errors.New("Ensure that JENKINS_USERNAME and JENKINS_PASSWORD env vars are set.")
 	}
 
 	return nil
