@@ -6,6 +6,10 @@ Currently not very extensible beyond the current use case but just needs some TL
 
 ## Installation
 
+To download the package:
+
+    $ go get -u github.com/eimlav/adhocio
+
 The following will install a compiled binary:
 
     $ go install -i github.com/eimlav/adhocio
